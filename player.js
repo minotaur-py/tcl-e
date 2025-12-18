@@ -1892,7 +1892,7 @@ toggleEl.onclick = () => {
   } else if (mode === "pergame") {
     drawDrawer4Games(drawer4DataCache);
     toggleEl.dataset.mode = "games";
-    toggleEl.textContent = "Show Win Rate";
+    toggleEl.textContent = "Show Win Rates";
     labelEl.textContent = "Number of Games Played with Each Ally";
 
 } else if (mode === "games") {
