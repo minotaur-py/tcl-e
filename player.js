@@ -1895,13 +1895,12 @@ toggleEl.onclick = () => {
     toggleEl.textContent = "Show Win Rate";
     labelEl.textContent = "Number of Games Played with Each Ally";
 
-  } else if (mode === "games") {
-    drawDrawer4WinRate(drawer4DataCache);
-    toggleEl.dataset.mode = "winrate";
-    toggleEl.textContent = "Show All Points Gained";
-    labelEl.textContent = "Win Rate with Each Ally";
-
-  } else {
+} else if (mode === "games") {
+  drawDrawer4WinRate(drawer4DataCache);
+  toggleEl.dataset.mode = "winrate";
+  toggleEl.textContent = "Show All Points Gained";
+  labelEl.textContent = "Win Rates with Regular Allies";
+} else {
     drawDrawer4Total(drawer4DataCache);
     toggleEl.dataset.mode = "total";
     toggleEl.textContent = "Show Points per Game";
@@ -2080,7 +2079,12 @@ function winRateColor(wr) {
 function drawDrawer4WinRate(list) {
   resetDrawer4Chart();
 
-  const sorted = [...list].sort((a, b) => b.winRate - a.winRate);
+  const MIN_GAMES = 5;
+
+  const filtered = list.filter(x => x.games >= MIN_GAMES);
+  if (filtered.length === 0) return;
+
+  const sorted = filtered.sort((a, b) => b.winRate - a.winRate);
 
   const canvas = document.getElementById("extraChart4");
   if (!canvas) return;
